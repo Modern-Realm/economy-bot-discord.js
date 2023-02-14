@@ -30,7 +30,7 @@
 
 <br/>
 
-To create a Discord bot using Python, go to [economy-bot-discord.py](https://github.com/Modern-Realm/economy-bot-discord.py)
+To create a Discord bot using **Python**, go to [economy-bot-discord.py](https://github.com/Modern-Realm/economy-bot-discord.py)
 
 <hr/>
 
