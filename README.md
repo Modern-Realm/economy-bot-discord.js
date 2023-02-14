@@ -53,7 +53,7 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 | shop info | item_name | ` /shop <item name>` |
 |    buy    | item_name |  `/buy <item name>`  |
 |   sell    | item_name | `/sell <item name>`  |
-| inventory |   None    |        `$inv`        |
+| inventory |   None    |     `/inventory`     |
 
 <hr/>
 
