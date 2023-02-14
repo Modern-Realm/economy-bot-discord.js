@@ -1,0 +1,20 @@
+{
+  "name": "economy-bot-discord",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "skrphenix",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^1.5.0",
+    "discord-api-types": "^0.37.29",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "mathjs": "^11.5.0",
+    "mysql": "^2.18.1"
+  },
+  "description": ""
+}
