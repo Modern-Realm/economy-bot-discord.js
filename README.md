@@ -38,22 +38,22 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 
 ### • Bank commands
 
-|    Name     | Aliases |  Args  |      Usage       |
-| :---------: | :-----: | :----: | :--------------: |
-|   balance   |   bal   |  None  |      `$bal`      |
-|   deposit   |   dep   | amount | `$dep <amount>`  |
-|  withdraw   |  with   | amount | `$with <amount>` |
-| leaderboard |   lb    |  None  |      `$lb `      |
+|    Name     |  Args  |        Usage         |
+| :---------: | :----: | :------------------: |
+|   balance   |  None  |      `/balance`      |
+|   deposit   | amount | `/deposit <amount>`  |
+|  withdraw   | amount | `/withdraw <amount>` |
+| leaderboard |  None  |    `/leaderboard`    |
 
 ### • Shop commands
 
-|   Name    | Aliases |   Args    |        Usage         |
-| :-------: | :-----: | :-------: | :------------------: |
-|   shop    |   ---   |   None    |       `$shop`        |
-| shop info |   ---   | item_name | ` $shop <item name>` |
-|    buy    |   ---   | item_name |  `$buy <item name>`  |
-|   sell    |   ---   | item_name | `$sell <item name>`  |
-| inventory |   inv   |   None    |        `$inv`        |
+|   Name    |   Args    |        Usage         |
+| :-------: | :-------: | :------------------: |
+|   shop    |   None    |       `/shop`        |
+| shop info | item_name | ` /shop <item name>` |
+|    buy    | item_name |  `/buy <item name>`  |
+|   sell    | item_name | `/sell <item name>`  |
+| inventory |   None    |        `$inv`        |
 
 <hr/>
 
