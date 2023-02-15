@@ -1,6 +1,6 @@
 # Quickstart
 
-## clone the repository
+# clone the repository
 
 ```sh
 git clone https://github.com/Modern-Realm/economy-bot-discord.js
