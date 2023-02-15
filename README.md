@@ -12,10 +12,6 @@
 ![Windows](https://img.shields.io/badge/os-windows-yellow)
 ![Linux](https://img.shields.io/badge/os-linux-yellow)
 
-[![GitHub stars](https://img.shields.io/github/stars/Modern-Realm/economy-bot-discord.js?color=gold)](https://github.com/Modern-Realm/economy-bot-discord.js/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Modern-Realm/economy-bot-discord.js?color=%2332cd32)](https://github.com/Modern-Realm/economy-bot-discord.js/network)
-[![GitHub issues](https://img.shields.io/github/issues/Modern-Realm/economy-bot-discord.js?color=orange)](https://github.com/Modern-Realm/economy-bot-discord.js/issues)
-
 ### Join [Official Discord Server](https://discord.gg/GVMWx5EaAN "click to Join") for more guidance !
 
 <hr/>
