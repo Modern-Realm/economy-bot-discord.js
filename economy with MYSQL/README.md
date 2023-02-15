@@ -3,13 +3,13 @@
 # clone the repository
 
 ```sh
-git clone https://github.com/Modern-Realm/economy-bot-discord.js .
+git clone https://github.com/Modern-Realm/economy-bot-discord.js
 ```
 
 # Setting up the working directory & installing packages
 
 ```sh
-cd "economy with MYSQL"
+cd "economy-bot-discord.js/economy with MYSQL"
 npm install
 ```
 
