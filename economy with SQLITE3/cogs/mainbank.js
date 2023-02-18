@@ -151,6 +151,8 @@ leaderboard.callback(async (interaction) => {
     await interaction.followUp({ embeds: [em] });
 });
 
-(() => {
-    console.log(`- ${__filename.slice(__dirname.length + 1)}`);
-})();
+module.exports = {
+    setup: () => {
+        console.log(`- ${__filename.slice(__dirname.length + 1)}`);
+    }
+}

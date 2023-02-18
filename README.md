@@ -51,6 +51,14 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 |   sell    | item_name | `/sell <item name>`  |
 | inventory |   None    |     `/inventory`     |
 
+### • Economy commands
+
+|  Name   | Args |   Usage    | Cooldown (in days) |
+| :-----: | :--: | :--------: | :----------------: |
+|  daily  | None |  `/daily`  |         1          |
+| weekly  | None | `/weekly`  |         7          |
+| monthly | None | `/monthly` |         30         |
+
 <hr/>
 
 ## Contact Us

@@ -1,6 +1,6 @@
 const { Auth } = require("./config.js");
 const { register_commands } = require("./sync_commands.js");
-const { client } = require("./base.js");
+const { client, Cooldown, time_convertor } = require("./base.js");
 const bank_funcs = require("./modules/bank_funcs.js");
 const inventory_funcs = require('./modules/inventory_funcs.js');
 
@@ -16,34 +16,62 @@ const commandFiles = fs.readdirSync(
 console.log("Loading cogs:");
 for (let file of commandFiles) {
     let filePath = path.join(commandsPath, file);
-    require(filePath);
+    require(filePath).setup();
 }
 console.log();
 
 client.on(Events.ClientReady, async () => {
-    client.user.setActivity(
-        { name: "/help", type: ActivityType.Playing }
-    );
-
-    await bank_funcs.DB.connect();
     await bank_funcs.create_table();
     await inventory_funcs.create_table();
     console.log("Database tables updated!");
 
+    client.user.setActivity(
+        { name: "/help", type: ActivityType.Playing }
+    );
     console.log(`${client.user.tag}'s online`);
 });
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
+    const command_name = interaction.commandName;
+    const user = interaction.user;
 
-    let command = interaction.client.commands.get(interaction.commandName);
+    const command = interaction.client.commands.get(command_name);
     if (!command) {
-        console.error(`Slash command Not Found: ${interaction.commandName}`);
+        console.error(`Slash command Not Found: ${command_name}`);
         return;
     }
 
     try {
+        // check command cooldown
+        let userCD;
+        const cooldowns = client.cooldowns.get(command_name);
+        if (cooldowns) {
+            userCD = cooldowns.filter(cd => cd.userID === user.id);
+            if (userCD.length == 1) {
+                userCD = userCD[0];
+                const cur_time = new Date();
+                const cmd_time = userCD.per;
+                if (cur_time.getTime() <= cmd_time.getTime()) {
+                    return await interaction.reply(`command on cooldown, retry after ` +
+                        `\`${time_convertor(cmd_time - cur_time)}\``);
+                }
+                else
+                    delete cooldowns[cooldowns.findIndex(cd => cd.userID === user.id)];
+            }
+        }
+
         await command.execute(interaction);
+
+        // create command cooldown
+        if (cooldowns) {
+            userCD = cooldowns.filter(cd => cd.userID === user.id);
+            if (userCD.length == 0) {
+                const new_date = new Date();
+                new_date.setSeconds(new_date.getSeconds() + command.per);
+                cooldowns.push({ userID: user.id, per: new_date });
+            }
+        }
     } catch (error) {
         console.error(error);
         const err_msg = {

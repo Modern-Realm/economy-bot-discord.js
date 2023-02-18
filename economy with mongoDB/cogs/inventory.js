@@ -69,7 +69,7 @@ buy.callback(async (interaction) => {
         return await interaction.followUp(`${userMention(user.id)} theirs no item named \`${item_name}\``);
 
     const users = await get_bank_data(user);
-    for (let item of shop_items) {
+    for (const item of shop_items) {
         if (item_name == item.name.toLowerCase()) {
             if (users[1] < item.cost) {
                 return await interaction.followUp(
@@ -125,6 +125,8 @@ sell.callback(async (interaction) => {
 });
 
 
-(() => {
-    console.log(`- ${__filename.slice(__dirname.length + 1)}`);
-})();
+module.exports = {
+    setup: () => {
+        console.log(`- ${__filename.slice(__dirname.length + 1)}`);
+    }
+}

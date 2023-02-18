@@ -69,6 +69,8 @@ shop.callback(async (interaction) => {
     }
 });
 
-(() => {
-    console.log(`- ${__filename.slice(__dirname.length + 1)}`);
-})();
+module.exports = {
+    setup: () => {
+        console.log(`- ${__filename.slice(__dirname.length + 1)}`);
+    }
+}
