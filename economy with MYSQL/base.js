@@ -19,32 +19,6 @@ const client = new Client({
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
-class Cooldown {
-    constructor() {
-        this.userID = null;
-        this.rate = 0;
-        this.per = 0;
-        this.cooldown = null;
-    }
-
-    setUserID(member_id) {
-        this.userID = member_id;
-        return this;
-    }
-    incRate(rate) {
-        this.rate += rate;
-        return this;
-    }
-    incPer(per) {
-        this.per += per;
-        return this;
-    }
-    setCooldown(date) {
-        this.cooldown = date;
-        return this;
-    }
-}
-
 class SlashCommand {
     constructor(builder) {
         this.builder = builder;
@@ -95,7 +69,6 @@ function time_convertor(milliseconds) {
 module.exports = {
     client,
     SlashCommand,
-    Cooldown,
     randint,
     time_convertor
 };

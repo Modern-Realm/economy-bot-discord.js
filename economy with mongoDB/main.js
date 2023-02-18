@@ -1,6 +1,6 @@
 const { Auth } = require("./config.js");
 const { register_commands } = require("./sync_commands.js");
-const { client, Cooldown, time_convertor } = require("./base.js");
+const { client, time_convertor } = require("./base.js");
 const bank_funcs = require("./modules/bank_funcs.js");
 const inventory_funcs = require('./modules/inventory_funcs.js');
 
