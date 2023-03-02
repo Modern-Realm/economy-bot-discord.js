@@ -9,7 +9,7 @@ async function register_commands(bot_commands, sync) {
     let data, commands = [];
     try {
         for (let val of bot_commands.values()) {
-            commands.push(val.builder.toJSON());
+            commands.push(val.toJSON());
         }
 
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
@@ -34,6 +34,7 @@ async function register_commands(bot_commands, sync) {
             console.log(`Successfully reloaded ${data.length} application (/) commands.`);
         }
     } catch (error) {
+        // And of course, make sure you catch and log any errors!
         console.error(error);
     }
 };

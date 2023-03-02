@@ -2,17 +2,14 @@ const { SlashCommand } = require("../base.js");
 const { open_bank, get_bank_data, update_bank, get_networth_lb } = require("../modules/bank_funcs.js");
 
 const {
-    SlashCommandBuilder,
     EmbedBuilder, userMention,
     Interaction
 } = require("discord.js");
 
-const balance = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("balance")
-        .setDescription("get bank balance")
-        .setDMPermission(false)
-);
+const balance = new SlashCommand()
+    .setName("balance")
+    .setDescription("get bank balance")
+    .setDMPermission(false);
 balance.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -35,17 +32,15 @@ balance.callback(async (interaction) => {
     await interaction.followUp({ embeds: [em] });
 });
 
-const withdraw = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("withdraw")
-        .setDescription("withdraws money from bank")
-        .addStringOption(option =>
-            option
-                .setName("amount")
-                .setDescription("enter amount, 'all' or 'max'")
-                .setRequired(true))
-        .setDMPermission(false)
-);
+const withdraw = new SlashCommand()
+    .setName("withdraw")
+    .setDescription("withdraws money from bank")
+    .addStringOption(option =>
+        option
+            .setName("amount")
+            .setDescription("enter amount, 'all' or 'max'")
+            .setRequired(true))
+    .setDMPermission(false);
 withdraw.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -73,17 +68,15 @@ withdraw.callback(async (interaction) => {
     await interaction.followUp(`${userMention(user.id)} you withdraw ${amount} from your bank`);
 });
 
-const deposit = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("deposit")
-        .setDescription("deposit money into bank")
-        .addStringOption(option =>
-            option
-                .setName("amount")
-                .setDescription("enter amount, 'all' or 'max'")
-                .setRequired(true))
-        .setDMPermission(false)
-);
+const deposit = new SlashCommand()
+    .setName("deposit")
+    .setDescription("deposit money into bank")
+    .addStringOption(option =>
+        option
+            .setName("amount")
+            .setDescription("enter amount, 'all' or 'max'")
+            .setRequired(true))
+    .setDMPermission(false);
 deposit.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -109,11 +102,9 @@ deposit.callback(async (interaction) => {
     await interaction.followUp(`${userMention(user.id)} you deposited ${amount} in your bank`);
 });
 
-const leaderboard = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("leaderboard")
-        .setDescription("get the top members w.r.t net worth")
-);
+const leaderboard = new SlashCommand()
+    .setName("leaderboard")
+    .setDescription("get the top members w.r.t net worth");
 leaderboard.callback(async (interaction) => {
     await interaction.deferReply();
 

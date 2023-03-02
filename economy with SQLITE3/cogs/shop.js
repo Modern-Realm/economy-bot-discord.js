@@ -8,17 +8,15 @@ const {
     Interaction
 } = require("discord.js");
 
-const shop = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("shop")
-        .setDescription("get the shop items")
-        .addStringOption(option =>
-            option
-                .setName("item_name")
-                .setDescription("get the item information")
-                .setRequired(false))
-        .setDMPermission(false)
-)
+const shop = new SlashCommand()
+    .setName("shop")
+    .setDescription("get the shop items")
+    .addStringOption(option =>
+        option
+            .setName("item_name")
+            .setDescription("get the item information")
+            .setRequired(false))
+    .setDMPermission(false);
 shop.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;

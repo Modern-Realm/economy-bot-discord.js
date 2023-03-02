@@ -19,22 +19,22 @@ const client = new Client({
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
-class SlashCommand {
-    constructor(builder) {
-        this.builder = builder;
+class SlashCommand extends SlashCommandBuilder {
+    constructor() {
+        super();
         this.execute = null;
         this.per = null;
     }
 
     setCooldown(per) {
         this.per = per;
-        client.cooldowns.set(this.builder.name, new Array());
+        client.cooldowns.set(this.name, new Array());
         return this;
     }
 
     callback(coro) {
         this.execute = coro;
-        client.commands.set(this.builder.name, this);
+        client.commands.set(this.name, this);
     }
 }
 

@@ -2,16 +2,14 @@ const { SlashCommand, randint } = require("../base.js");
 const { open_bank, update_bank } = require("../modules/bank_funcs.js");
 
 const {
-    SlashCommandBuilder,
     EmbedBuilder, userMention
 } = require("discord.js");
 
-const daily = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("daily")
-        .setDescription("get daily pocket money")
-        .setDMPermission(false)
-).setCooldown(24 * 3600);
+const daily = new SlashCommand()
+    .setName("daily")
+    .setDescription("get daily pocket money")
+    .setDMPermission(false)
+    .setCooldown(24 * 3600);
 daily.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -22,12 +20,11 @@ daily.callback(async (interaction) => {
     await interaction.followUp(`${userMention(user.id)} your daily pocket money is ${rand_amt}`);
 })
 
-const weekly = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("weekly")
-        .setDescription("get weekly pocket money")
-        .setDMPermission(false)
-).setCooldown(7 * 24 * 3600);
+const weekly = new SlashCommand()
+    .setName("weekly")
+    .setDescription("get weekly pocket money")
+    .setDMPermission(false)
+    .setCooldown(7 * 24 * 3600);
 weekly.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -38,12 +35,11 @@ weekly.callback(async (interaction) => {
     await interaction.followUp(`${userMention(user.id)} your weekly pocket money is ${rand_amt}`);
 })
 
-const monthly = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("monthly")
-        .setDescription("get monthly pocket money")
-        .setDMPermission(false)
-).setCooldown(30 * 24 * 3600);
+const monthly = new SlashCommand()
+    .setName("monthly")
+    .setDescription("get monthly pocket money")
+    .setDMPermission(false)
+    .setCooldown(30 * 24 * 3600);
 monthly.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;

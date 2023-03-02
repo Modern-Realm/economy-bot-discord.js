@@ -10,12 +10,10 @@ const {
 } = require("discord.js");
 const Math = require("mathjs");
 
-const inventory = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("inventory")
-        .setDescription("get your item list")
-        .setDMPermission(false)
-);
+const inventory = new SlashCommand()
+    .setName("inventory")
+    .setDescription("get your item list")
+    .setDMPermission(false);
 inventory.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -48,17 +46,15 @@ inventory.callback(async (interaction) => {
     await interaction.followUp({ embeds: [em] });
 });
 
-const buy = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("buy")
-        .setDescription("buy a item from shop")
-        .addStringOption(option =>
-            option
-                .setName("item_name")
-                .setDescription("enter a item name from the shop")
-                .setRequired(true))
-        .setDMPermission(false)
-);
+const buy = new SlashCommand()
+    .setName("buy")
+    .setDescription("buy a item from shop")
+    .addStringOption(option =>
+        option
+            .setName("item_name")
+            .setDescription("enter a item name from the shop")
+            .setRequired(true))
+    .setDMPermission(false);
 buy.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
@@ -85,17 +81,15 @@ buy.callback(async (interaction) => {
     }
 });
 
-const sell = new SlashCommand(
-    new SlashCommandBuilder()
-        .setName("sell")
-        .setDescription("get your item list")
-        .addStringOption(option =>
-            option
-                .setName("item_name")
-                .setDescription("sell a item from your inventory")
-                .setRequired(true))
-        .setDMPermission(false)
-);
+const sell = new SlashCommand()
+    .setName("sell")
+    .setDescription("get your item list")
+    .addStringOption(option =>
+        option
+            .setName("item_name")
+            .setDescription("sell a item from your inventory")
+            .setRequired(true))
+    .setDMPermission(false);
 sell.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
