@@ -13,10 +13,20 @@ const Math = require("mathjs");
 const inventory = new SlashCommand()
     .setName("inventory")
     .setDescription("get your item list")
+    .addUserOption(option =>
+        option
+            .setName("member")
+            .setDescription("target @member")
+            .setRequired(false))
     .setDMPermission(false);
 inventory.callback(async (interaction) => {
     await interaction.deferReply();
-    const user = interaction.user;
+
+    const member = interaction.options.getUser("member", false);
+    const user = member || interaction.user;
+    if (user.bot)
+        return await interaction.followUp("Bot's don't have account");
+
     await open_inv(user);
 
     const em = new EmbedBuilder()

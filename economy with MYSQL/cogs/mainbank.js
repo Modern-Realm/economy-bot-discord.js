@@ -9,10 +9,18 @@ const {
 const balance = new SlashCommand()
     .setName("balance")
     .setDescription("get bank balance")
+    .addUserOption(option =>
+        option
+            .setName("member")
+            .setDescription("target @member")
+            .setRequired(false))
     .setDMPermission(false);
 balance.callback(async (interaction) => {
     await interaction.deferReply();
-    const user = interaction.user;
+    const member = interaction.options.getUser("member", false);
+    const user = member || interaction.user;
+    if (user.bot)
+        return await interaction.followUp("Bot's don't have account");
     await open_bank(user);
 
     const users = await get_bank_data(user);
@@ -100,6 +108,41 @@ deposit.callback(async (interaction) => {
     await update_bank(user, -amount);
     await update_bank(user, +amount, "bank");
     await interaction.followUp(`${userMention(user.id)} you deposited ${amount} in your bank`);
+});
+
+const send = new SlashCommand()
+    .setName("send")
+    .setDescription("send/transfer money to a member")
+    .addUserOption(option =>
+        option
+            .setName("member")
+            .setDescription("target @member")
+            .setRequired(true))
+    .addIntegerOption(option =>
+        option
+            .setName("amount")
+            .setDescription("enter a positive integer")
+            .setRequired(true))
+    .setDMPermission(false);
+send.callback(async (interaction) => {
+    await interaction.deferReply();
+
+    const user = interaction.user;
+    const member = interaction.options.getUser("member", true);
+    const amount = interaction.options.getInteger("amount", true);
+    if (member.bot)
+        return await interaction.followUp("Bot's don't have account");
+
+    const users = await get_bank_data(user);
+    const wallet_amt = await get_bank_data(user);
+    if (amount <= 0)
+        return await interaction.followUp("Enter a valid amount!");
+    if (amount > wallet_amt)
+        return await interaction.followUp("You don't habe enough money");
+
+    await update_bank(user, -amount);
+    await update_bank(member, +amount);
+    await interaction.followUp(`You sent ${amount} to ${userMention(member.id)}`);
 });
 
 const leaderboard = new SlashCommand()

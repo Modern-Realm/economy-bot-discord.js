@@ -34,22 +34,23 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 
 ### • Bank commands
 
-|    Name     |  Args  |        Usage         |
-| :---------: | :----: | :------------------: |
-|   balance   |  None  |      `/balance`      |
-|   deposit   | amount | `/deposit <amount>`  |
-|  withdraw   | amount | `/withdraw <amount>` |
-| leaderboard |  None  |    `/leaderboard`    |
+|                             Name                             |      Args      |             Usage             |
+| :----------------------------------------------------------: | :------------: | :---------------------------: |
+|                           balance                            |     member     | `/balance <member: optional>` |
+|                           deposit                            |     amount     |      `/deposit <amount>`      |
+|                           withdraw                           |     amount     |     `/withdraw <amount>`      |
+| send ![Generic badge](https://img.shields.io/badge/new-gold) | member, amount |   `/send <member> <amount>`   |
+|                         leaderboard                          |      None      |        `/leaderboard`         |
 
 ### • Shop commands
 
-|   Name    |   Args    |        Usage         |
-| :-------: | :-------: | :------------------: |
-|   shop    |   None    |       `/shop`        |
-| shop info | item_name | ` /shop <item name>` |
-|    buy    | item_name |  `/buy <item name>`  |
-|   sell    | item_name | `/sell <item name>`  |
-| inventory |   None    |     `/inventory`     |
+|   Name    |   Args    |              Usage              |
+| :-------: | :-------: | :-----------------------------: |
+|   shop    |   None    |             `/shop`             |
+| shop info | item_name |      ` /shop <item name>`       |
+|    buy    | item_name |       `/buy <item name>`        |
+|   sell    | item_name |       `/sell <item name>`       |
+| inventory |  member   | `/inventory <member: optional>` |
 
 ### • Economy commands
 
@@ -58,6 +59,14 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 |  daily  | None |  `/daily`  |         1          |
 | weekly  | None | `/weekly`  |         7          |
 | monthly | None | `/monthly` |         30         |
+
+### • Fun commands ![Generic badge](https://img.shields.io/badge/new-gold)
+
+|   Name   |      Args      |                Usage                |
+| :------: | :------------: | :---------------------------------: |
+| coinflip | bet_on, amount |    `/coinflip <bet_on> <amount>`    |
+|  slots   |     amount     |          `/slots <amount>`          |
+|   dice   | amount, bet_on | `/dice <amount> <bet_on: optional>` |
 
 <hr/>
 

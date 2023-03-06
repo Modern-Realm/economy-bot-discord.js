@@ -100,6 +100,8 @@ process.on('SIGTERM', signal => { process.exit(0); });
 process.on("SIGINT", signal => { process.exit(0); });
 
 // sync commands
-register_commands(client.commands, false).then(
-    () => setTimeout(() => client.login(Auth.TOKEN), 3 * 1000)
-);
+// register_commands(client.commands, false).then(
+//     () => setTimeout(() => client.login(Auth.TOKEN), 3 * 1000)
+// );
+
+client.login(Auth.TOKEN);

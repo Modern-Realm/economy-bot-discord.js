@@ -44,6 +44,10 @@ function randint(min, max = null) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
 function time_convertor(milliseconds) {
     const secs_ = Math.floor(milliseconds / 1000);
     let secs = secs_;
@@ -70,5 +74,6 @@ module.exports = {
     client,
     SlashCommand,
     randint,
+    shuffle,
     time_convertor
 };
