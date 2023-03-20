@@ -1,12 +1,12 @@
 const { Auth } = require("../config.js");
 
-const mysql2 = require("mysql");
+const mysql = require("mysql");
 const { User } = require("discord.js");
 
 const TABLE_NAME = "`bank`";
 const columns = ["wallet", "bank"]; // You can add more Columns in it !
 
-const conn = mysql2.createConnection({
+const conn = mysql.createConnection({
     host: Auth.DB_HOST,
     port: Auth.DB_PORT,
     user: Auth.DB_USER,
