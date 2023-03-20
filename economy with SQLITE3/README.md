@@ -18,7 +18,7 @@ npm install
 # run the main.js file
 
 ```sh
-node main.js
+node .
 ```
 
 🎉 Your discord bot should be online and ready to use!

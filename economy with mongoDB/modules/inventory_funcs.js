@@ -1,5 +1,7 @@
 const { DB } = require("../modules/bank_funcs.js");
 
+const { User } = require("discord.js");
+
 const TABLE_NAME = "inventory";
 
 const shop_items = [
@@ -8,7 +10,7 @@ const shop_items = [
     { name: "laptop", cost: 10000, id: 3, info: "It's a laptop" },
     // You can add your items here ...
 ];
-const item_names = shop_items.map(item => item.name);
+const item_names = shop_items.map((item) => item.name);
 
 async function create_table() {
     const db = DB.cursor();
@@ -19,18 +21,27 @@ async function create_table() {
     }
 }
 
+/**
+ *
+ * @param {User} user
+ */
 async function open_inv(user) {
     let doc = { _id: user.id };
 
     const cursor = DB.cursor().collection(TABLE_NAME);
     const user_data = await cursor.findOne({ _id: user.id });
     if (user_data === null) {
-        for (const name of item_names)
-            doc[name] = 0;
-        await cursor.insertOne(doc);
+        for (const name of item_names) doc[name] = 0;
+        cursor.insertOne(doc);
     }
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {string | null} mode
+ * @returns
+ */
 async function get_inv_data(user, mode = null) {
     let user_data = null;
     const cursor = DB.cursor().collection(TABLE_NAME);
@@ -38,11 +49,21 @@ async function get_inv_data(user, mode = null) {
     else {
         const payload = {};
         payload[mode] = 1;
-        user_data = await cursor.findOne({ _id: user.id }, { projection: payload });
+        user_data = await cursor.findOne(
+            { _id: user.id },
+            { projection: payload }
+        );
     }
     return Object.values(user_data);
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {number} amount
+ * @param {string} mode
+ * @returns
+ */
 async function update_inv(user, amount, mode = "wallet") {
     const cursor = DB.cursor().collection(TABLE_NAME);
     const payload = {};
@@ -53,10 +74,20 @@ async function update_inv(user, amount, mode = "wallet") {
     const doc = {};
     doc._id = 0;
     doc[mode] = 1;
-    const user_data = await cursor.findOne({ _id: user.id }, { projection: doc });
+    const user_data = await cursor.findOne(
+        { _id: user.id },
+        { projection: doc }
+    );
     return Object.values(user_data);
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {number} amount
+ * @param {string} mode
+ * @returns
+ */
 async function change_inv(user, amount, mode = "wallet") {
     const cursor = DB.cursor().collection(TABLE_NAME);
     let payload = {};
@@ -66,7 +97,10 @@ async function change_inv(user, amount, mode = "wallet") {
 
     const doc = { _id: 0 };
     doc[mode] = 1;
-    const user_data = await cursor.findOne({ _id: user.id }, { projection: doc });
+    const user_data = await cursor.findOne(
+        { _id: user.id },
+        { projection: doc }
+    );
     return Object.values(user_data);
 }
 

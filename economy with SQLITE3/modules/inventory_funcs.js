@@ -1,5 +1,7 @@
 const { DB } = require("../modules/bank_funcs.js");
 
+const { User } = require("discord.js");
+
 const TABLE_NAME = "`inventory`";
 
 const shop_items = [
@@ -19,10 +21,14 @@ async function create_table() {
             await DB.execute(
                 `ALTER TABLE ${TABLE_NAME} ADD COLUMN \`${col}\` MEDIUMINT DEFAULT 0`
             );
-        } catch (err) { }
+        } catch (err) {}
     }
 }
 
+/**
+ *
+ * @param {User} user
+ */
 async function open_inv(user) {
     var data = await DB.execute(
         `SELECT * FROM ${TABLE_NAME} WHERE userID = ?`,
@@ -30,10 +36,17 @@ async function open_inv(user) {
         "one"
     );
     if (data === null) {
-        await DB.execute(`INSERT INTO ${TABLE_NAME}(userID) VALUES(?)`, [user.id]);
+        await DB.execute(`INSERT INTO ${TABLE_NAME}(userID) VALUES(?)`, [
+            user.id,
+        ]);
     }
 }
 
+/**
+ *
+ * @param {User} user
+ * @returns
+ */
 async function get_inv_data(user) {
     return await DB.execute(
         `SELECT * FROM ${TABLE_NAME} WHERE userID = ?`,
@@ -42,6 +55,13 @@ async function get_inv_data(user) {
     );
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {number} amount
+ * @param {string} mode
+ * @returns
+ */
 async function update_inv(user, amount, mode) {
     var data = await DB.execute(
         `SELECT \`${mode}\` FROM ${TABLE_NAME} WHERE userID = ?`,
@@ -62,6 +82,13 @@ async function update_inv(user, amount, mode) {
     );
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {number} amount
+ * @param {string} mode
+ * @returns
+ */
 async function change_inv(user, amount, mode = "wallet") {
     var data = await DB.execute(
         `SELECT \`${mode}\` FROM ${TABLE_NAME} WHERE userID = ?`,

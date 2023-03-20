@@ -1,36 +1,39 @@
 const { SlashCommand } = require("../base.js");
-const { open_bank, get_bank_data, update_bank } = require("../modules/bank_funcs.js");
-const { shop_items, open_inv, get_inv_data, update_inv } = require("../modules/inventory_funcs.js");
-
 const {
-    SlashCommandBuilder,
-    EmbedBuilder,
-    Interaction,
-    userMention
-} = require("discord.js");
+    open_bank,
+    get_bank_data,
+    update_bank,
+} = require("../modules/bank_funcs.js");
+const {
+    shop_items,
+    open_inv,
+    get_inv_data,
+    update_inv,
+} = require("../modules/inventory_funcs.js");
+
+const { EmbedBuilder, userMention } = require("discord.js");
 const Math = require("mathjs");
 
 const inventory = new SlashCommand()
     .setName("inventory")
     .setDescription("get your item list")
-    .addUserOption(option =>
+    .addUserOption((option) =>
         option
             .setName("member")
             .setDescription("target @member")
-            .setRequired(false))
+            .setRequired(false)
+    )
     .setDMPermission(false);
 inventory.callback(async (interaction) => {
     await interaction.deferReply();
 
     const member = interaction.options.getUser("member", false);
     const user = member || interaction.user;
-    if (user.bot)
-        return await interaction.followUp("Bot's don't have account");
+    if (user.bot) return await interaction.followUp("Bot's don't have account");
 
     await open_inv(user);
 
-    const em = new EmbedBuilder()
-        .setColor(0x00ff00)
+    const em = new EmbedBuilder().setColor(0x00ff00);
     let x = 1;
     for (const item of shop_items) {
         const name = item["name"];
@@ -41,17 +44,17 @@ inventory.callback(async (interaction) => {
             x += 1;
             em.addFields({
                 name: `${name.toUpperCase()} - ${data[0]}`,
-                value: `ID: ${item_id}`, inline: false
-            })
+                value: `ID: ${item_id}`,
+                inline: false,
+            });
         }
     }
 
     em.setAuthor({
         name: `${user.username}'s Inventory`,
-        iconURL: user.displayAvatarURL()
-    })
-    if (x == 1)
-        em.setDescription("The items which you bought display here...");
+        iconURL: user.displayAvatarURL(),
+    });
+    if (x == 1) em.setDescription("The items which you bought display here...");
 
     await interaction.followUp({ embeds: [em] });
 });
@@ -59,34 +62,44 @@ inventory.callback(async (interaction) => {
 const buy = new SlashCommand()
     .setName("buy")
     .setDescription("buy a item from shop")
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName("item_name")
             .setDescription("enter a item name from the shop")
-            .setRequired(true))
+            .setRequired(true)
+    )
     .setDMPermission(false);
 buy.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
-    const item_name = interaction.options.getString("item_name").trim().toLowerCase();
+    const item_name = interaction.options
+        .getString("item_name")
+        .trim()
+        .toLowerCase();
 
     await open_bank(user);
-    if (!(shop_items.map(item => item.name.toLowerCase()).includes(item_name)))
-        return await interaction.followUp(`${userMention(user.id)} theirs no item named \`${item_name}\``);
+    if (!shop_items.map((item) => item.name.toLowerCase()).includes(item_name))
+        return await interaction.followUp(
+            `${userMention(user.id)} theirs no item named \`${item_name}\``
+        );
 
     const users = await get_bank_data(user);
     for (const item of shop_items) {
         if (item_name == item.name.toLowerCase()) {
             if (users[1] < item.cost) {
                 return await interaction.followUp(
-                    `${userMention(user.id)} you don't have enough money to buy ${item.name}`
+                    `${userMention(
+                        user.id
+                    )} you don't have enough money to buy ${item.name}`
                 );
             }
 
             await open_inv(user);
             await update_inv(user, +1, item.name);
             await update_bank(user, -item.cost);
-            return await interaction.followUp(`${userMention(user.id)} you bought ${item_name}`);
+            return await interaction.followUp(
+                `${userMention(user.id)} you bought ${item_name}`
+            );
         }
     }
 });
@@ -94,20 +107,26 @@ buy.callback(async (interaction) => {
 const sell = new SlashCommand()
     .setName("sell")
     .setDescription("get your item list")
-    .addStringOption(option =>
+    .addStringOption((option) =>
         option
             .setName("item_name")
             .setDescription("sell a item from your inventory")
-            .setRequired(true))
+            .setRequired(true)
+    )
     .setDMPermission(false);
 sell.callback(async (interaction) => {
     await interaction.deferReply();
     const user = interaction.user;
-    const item_name = interaction.options.getString("item_name").trim().toLowerCase();
+    const item_name = interaction.options
+        .getString("item_name")
+        .trim()
+        .toLowerCase();
     await open_bank(user);
 
-    if (!(shop_items.map(item => item.name.toLowerCase()).includes(item_name)))
-        return await interaction.followUp(`${userMention(user.id)} theirs no item named \`${item_name}\``);
+    if (!shop_items.map((item) => item.name.toLowerCase()).includes(item_name))
+        return await interaction.followUp(
+            `${userMention(user.id)} theirs no item named \`${item_name}\``
+        );
 
     for (const item of shop_items) {
         if (item_name == item.name.toLowerCase()) {
@@ -115,7 +134,9 @@ sell.callback(async (interaction) => {
             const quantity = await update_inv(user, 0, item.name);
             if (quantity[0] < 1)
                 return await interaction.followUp(
-                    `${userMention(user.id)} you don't have ${item.name} in your inventory`
+                    `${userMention(user.id)} you don't have ${
+                        item.name
+                    } in your inventory`
                 );
 
             await open_inv(user);
@@ -128,9 +149,8 @@ sell.callback(async (interaction) => {
     }
 });
 
-
 module.exports = {
     setup: () => {
         console.log(`- ${__filename.slice(__dirname.length + 1)}`);
-    }
-}
+    },
+};

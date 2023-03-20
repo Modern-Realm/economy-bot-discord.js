@@ -3,9 +3,9 @@ const {
     Client,
     GatewayIntentBits,
     Collection,
+    Interaction,
     SlashCommandBuilder,
 } = require("discord.js");
-const { sec } = require("mathjs");
 
 const client = new Client({
     intents: [
@@ -32,22 +32,42 @@ class SlashCommand extends SlashCommandBuilder {
         return this;
     }
 
+    /**
+     *
+     * @param {(interaction: Interaction)} coro
+     */
     callback(coro) {
         this.execute = coro;
         client.commands.set(this.name, this);
     }
 }
 
+/**
+ *
+ * @param {number} min
+ * @param {number | null} max
+ * @returns
+ */
 function randint(min, max = null) {
     if (max === null) return Math.floor(Math.random() * min);
 
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+/**
+ *
+ * @param {Array} array
+ * @returns
+ */
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
 }
 
+/**
+ *
+ * @param {number} milliseconds
+ * @returns
+ */
 function time_convertor(milliseconds) {
     const secs_ = Math.floor(milliseconds / 1000);
     let secs = secs_;
@@ -62,12 +82,9 @@ function time_convertor(milliseconds) {
     secs %= 60;
 
     const seconds = secs;
-    if (secs_ <= 3600)
-        return `${minutes}:${seconds}`;
-    else if (secs_ < 24 * 3600)
-        return `${hours}:${minutes}:${seconds}`;
-    else
-        return `${days} day(s)`;
+    if (secs_ <= 3600) return `${minutes}:${seconds}`;
+    else if (secs_ < 24 * 3600) return `${hours}:${minutes}:${seconds}`;
+    else return `${days} day(s)`;
 }
 
 module.exports = {
@@ -75,5 +92,5 @@ module.exports = {
     SlashCommand,
     randint,
     shuffle,
-    time_convertor
+    time_convertor,
 };

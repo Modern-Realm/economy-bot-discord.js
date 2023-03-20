@@ -7,7 +7,7 @@ const {
 } = require("../modules/bank_funcs.js");
 
 const Math = require("mathjs");
-const { EmbedBuilder, userMention, Interaction } = require("discord.js");
+const { EmbedBuilder, userMention } = require("discord.js");
 
 const coinflip = new SlashCommand()
     .setName("coinflip")
@@ -95,22 +95,20 @@ slots.callback(async (interaction) => {
     slot3 = shuffle(slot3);
 
     let mid;
-    if (total % 2 == 0)  // if even
+    if (total % 2 == 0)
+        // if even
         mid = Math.floor(total / 2);
-    else
-        mid = Math.floor((total + 1) / 2);
-
+    else mid = Math.floor((total + 1) / 2);
 
     const result = [];
-    for (let x = 0; x < total; x++)
-        result.push([slot1[x], slot2[x], slot3[x]]);
+    for (let x = 0; x < total; x++) result.push([slot1[x], slot2[x], slot3[x]]);
 
     const em = new EmbedBuilder().setDescription(
         "```" +
-        `| ${result[mid - 1].join(sep)} |\n` +
-        `| ${result[mid].join(sep)} | 📍\n` +
-        `| ${result[mid + 1].join(sep)} |\n` +
-        "```"
+            `| ${result[mid - 1].join(sep)} |\n` +
+            `| ${result[mid].join(sep)} | 📍\n` +
+            `| ${result[mid + 1].join(sep)} |\n` +
+            "```"
     );
 
     const slot = result[mid];
@@ -123,13 +121,11 @@ slots.callback(async (interaction) => {
         reward = Math.floor(amount / 2);
         await update_bank(user, +reward);
         content = `Jackpot! you won ${amount + reward}`;
-    }
-    else if (s1 == s2 || s2 == s3 || s1 == s3) {
+    } else if (s1 == s2 || s2 == s3 || s1 == s3) {
         reward = Math.floor(amount / 4);
         await update_bank(user, +reward);
         content = `GG! you only won ${amount + reward}`;
-    }
-    else {
+    } else {
         await update_bank(user, -amount);
         content = `You lost ${amount}`;
     }
@@ -140,7 +136,7 @@ slots.callback(async (interaction) => {
 const dice = new SlashCommand()
     .setName("dice")
     .setDescription("bet on number drawn from a rolling dice")
-    .addIntegerOption(option =>
+    .addIntegerOption((option) =>
         option
             .setName("amount")
             .setDescription("enter a positive number")
@@ -148,7 +144,7 @@ const dice = new SlashCommand()
             .setMaxValue(5000)
             .setRequired(true)
     )
-    .addIntegerOption(option =>
+    .addIntegerOption((option) =>
         option
             .setName("bet_on")
             .setDescription("enter a number of dice, default: 6")
@@ -172,8 +168,10 @@ dice.callback(async (interaction) => {
 
     const rand_num = rdice[randint(0, rdice.length)];
     if (rand_num != bet_on) {
-        await update_bank(user, -amount)
-        return await interaction.followUp(`Got ${rand_num}, you lost ${amount}`);
+        await update_bank(user, -amount);
+        return await interaction.followUp(
+            `Got ${rand_num}, you lost ${amount}`
+        );
     }
 
     const reward = Math.floor(amount / 2);

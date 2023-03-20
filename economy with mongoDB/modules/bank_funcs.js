@@ -1,4 +1,6 @@
 const { Auth } = require("../config.js");
+
+const { User } = require("discord.js");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const conn = new MongoClient(Auth.CLUSTER_AUTH_URL, {
@@ -41,6 +43,10 @@ async function create_table() {
     }
 }
 
+/**
+ *
+ * @param {User} user
+ */
 async function open_bank(user) {
     const cursor = DB.cursor().collection(TABLE_NAME);
     const user_data = await cursor.findOne({ _id: user.id });
@@ -52,6 +58,11 @@ async function open_bank(user) {
     }
 }
 
+/**
+ *
+ * @param {User} user
+ * @returns
+ */
 async function get_bank_data(user) {
     const cursor = DB.cursor().collection(TABLE_NAME);
 
@@ -59,6 +70,13 @@ async function get_bank_data(user) {
     return Object.values(user_data);
 }
 
+/**
+ *
+ * @param {User} user
+ * @param {number} amount
+ * @param {string} mode
+ * @returns
+ */
 async function update_bank(user, amount, mode = "wallet") {
     const cursor = DB.cursor().collection(TABLE_NAME);
     const payload = {};
