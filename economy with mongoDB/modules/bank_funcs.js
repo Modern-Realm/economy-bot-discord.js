@@ -99,7 +99,7 @@ async function get_networth_lb() {
     let sorted_data = [];
     for (const val of await user_data.toArray())
         sorted_data.push(Object.values(val));
-    console.log(sorted_data);
+
     return sorted_data;
 }
 
