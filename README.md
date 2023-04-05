@@ -75,10 +75,11 @@ New bot commands will be added shortly ...
 
 ## Thanking JetBrains for Their Support and Assistance
 
-<center>
+<div style="text-align: center">
+
 <img width="90px" height="80px" alt="JetBrains Logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png"/>
 
-[jetbrains.com](https://jb.gg/OpenSourceSupport) 
+[jetbrains.com](https://jb.gg/OpenSourceSupport)
 once again thank you 💝 for providing me free OSS License
 
 We used this JetBrains IDE to develop this open-source project:
@@ -86,7 +87,7 @@ We used this JetBrains IDE to develop this open-source project:
 • <img height="14px" width="16px" alt="WebStorm logo." src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.png"/>
 **WebStorm** - The smartest JavaScript IDE
 
-</center>
+</div>
 
 <hr/>
 
