@@ -75,7 +75,7 @@ New bot commands will be added shortly ...
 
 ## Thanking JetBrains for Their Support and Assistance
 
-<div style="text-align: center">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center">
 
 <img width="90px" height="80px" alt="JetBrains Logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png"/>
 
