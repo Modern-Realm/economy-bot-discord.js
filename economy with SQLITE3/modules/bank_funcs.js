@@ -1,12 +1,12 @@
-const { Auth } = require("../config.js");
+const {Auth} = require("../config.js");
 
-const { User } = require("discord.js");
+const {User} = require("discord.js");
 const sqlite3 = require("sqlite3").verbose();
 
 const TABLE_NAME = "`bank`";
 const columns = ["wallet", "bank"]; // You can add more Columns in it !
 
-const conn = new sqlite3.Database("../economy.db");
+const conn = new sqlite3.Database(Auth.DB_NAME);
 
 class Database {
     /**
@@ -36,13 +36,13 @@ class Database {
             }
         });
 
-        if (fetch == null) results = null;
+        if (fetch === null) results = null;
         else {
             try {
-                var data = results.map((row) => Object.values(row));
-                if (data.length == 0) results = null;
-                if (fetch == "all") results = data;
-                if (fetch == "one") results = data[0];
+                const data = results.map((row) => Object.values(row));
+                if (data.length === 0) results = null;
+                if (fetch === "all") results = data;
+                if (fetch === "one") results = data[0];
             } catch (error) {
                 results = null;
             }
@@ -60,14 +60,21 @@ const DB = new Database();
 
 async function create_table() {
     await DB.execute(
-        `CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(userID VARCHAR(100) PRIMARY KEY)`
+        `CREATE TABLE IF NOT EXISTS ${TABLE_NAME}
+        (
+            userID VARCHAR
+         (
+            100
+         ) PRIMARY KEY)`
     );
     for (let col of columns) {
         try {
             await DB.execute(
-                `ALTER TABLE ${TABLE_NAME} ADD COLUMN \`${col}\` MEDIUMINT`
+                `ALTER TABLE ${TABLE_NAME}
+                    ADD COLUMN \`${col}\` MEDIUMINT`
             );
-        } catch (err) {}
+        } catch (err) {
+        }
     }
 }
 
@@ -76,24 +83,31 @@ async function create_table() {
  * @param {User} user
  */
 async function open_bank(user) {
-    var data = await DB.execute(
-        `SELECT * FROM ${TABLE_NAME} WHERE userID = ?`,
+    const data = await DB.execute(
+        `SELECT *
+         FROM ${TABLE_NAME}
+         WHERE userID = ?`,
         [user.id],
         "one"
     );
     if (data === null) {
-        await DB.execute(`INSERT INTO ${TABLE_NAME}(userID) VALUES(?)`, [
+        await DB.execute(`INSERT INTO ${TABLE_NAME}(userID)
+                          VALUES (?)`, [
             user.id,
         ]);
         for (let name of columns) {
             await DB.execute(
-                `UPDATE ${TABLE_NAME} SET \`${name}\` = ? WHERE userID = ?`,
+                `UPDATE ${TABLE_NAME}
+                 SET \`${name}\` = ?
+                 WHERE userID = ?`,
                 [0, user.id]
             );
         }
 
         await DB.execute(
-            `UPDATE ${TABLE_NAME} SET \`wallet\` = ? WHERE userID = ?`,
+            `UPDATE ${TABLE_NAME}
+             SET \`wallet\` = ?
+             WHERE userID = ?`,
             [5000, user.id]
         );
     }
@@ -106,7 +120,9 @@ async function open_bank(user) {
  */
 async function get_bank_data(user) {
     return await DB.execute(
-        `SELECT * FROM ${TABLE_NAME} WHERE userID = ?`,
+        `SELECT *
+         FROM ${TABLE_NAME}
+         WHERE userID = ?`,
         [user.id],
         "one"
     );
@@ -120,20 +136,26 @@ async function get_bank_data(user) {
  * @returns
  */
 async function update_bank(user, amount, mode = "wallet") {
-    var data = await DB.execute(
-        `SELECT \`${mode}\` FROM ${TABLE_NAME} WHERE userID = ?`,
+    const data = await DB.execute(
+        `SELECT \`${mode}\`
+         FROM ${TABLE_NAME}
+         WHERE userID = ?`,
         [user.id],
         "one"
     );
     if (!(data === null)) {
         await DB.execute(
-            `UPDATE ${TABLE_NAME} SET \`${mode}\` = \`${mode}\` + ? WHERE userID = ?`,
+            `UPDATE ${TABLE_NAME}
+             SET \`${mode}\` = \`${mode}\` + ?
+             WHERE userID = ?`,
             [amount, user.id]
         );
     }
 
     return await DB.execute(
-        `SELECT \`${mode}\` FROM ${TABLE_NAME} WHERE userID = ?`,
+        `SELECT \`${mode}\`
+         FROM ${TABLE_NAME}
+         WHERE userID = ?`,
         [user.id],
         "one"
     );
@@ -141,8 +163,9 @@ async function update_bank(user, amount, mode = "wallet") {
 
 async function get_networth_lb() {
     return await DB.execute(
-        `SELECT userID, wallet + bank FROM ${TABLE_NAME} ` +
-            `ORDER BY wallet + bank DESC`,
+        `SELECT userID, wallet + bank
+         FROM ${TABLE_NAME} ` +
+        `ORDER BY wallet + bank DESC`,
         [],
         "all"
     );

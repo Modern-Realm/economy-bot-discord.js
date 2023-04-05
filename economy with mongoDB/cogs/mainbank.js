@@ -1,4 +1,4 @@
-const { SlashCommand } = require("../base.js");
+const {SlashCommand} = require("../base.js");
 const {
     open_bank,
     get_bank_data,
@@ -6,7 +6,7 @@ const {
     get_networth_lb,
 } = require("../modules/bank_funcs.js");
 
-const { EmbedBuilder, userMention } = require("discord.js");
+const {EmbedBuilder, userMention} = require("discord.js");
 
 const balance = new SlashCommand()
     .setName("balance")
@@ -31,15 +31,15 @@ balance.callback(async (interaction) => {
     let net_amt = wallet_amt + bank_amt;
 
     const em = new EmbedBuilder()
-        .setAuthor({ name: user.username, iconURL: user.displayAvatarURL() })
+        .setAuthor({name: user.username, iconURL: user.displayAvatarURL()})
         .setDescription(
             `Wallet: ${wallet_amt}\n` +
-                `Bank: ${bank_amt}\n` +
-                `Net: ${net_amt}`
+            `Bank: ${bank_amt}\n` +
+            `Net: ${net_amt}`
         )
         .setColor(0x00ff00);
 
-    await interaction.followUp({ embeds: [em] });
+    await interaction.followUp({embeds: [em]});
 });
 
 const withdraw = new SlashCommand()
@@ -154,7 +154,7 @@ send.callback(async (interaction) => {
         return await interaction.followUp("Bot's don't have account");
 
     const users = await get_bank_data(user);
-    const wallet_amt = await get_bank_data(user);
+    const wallet_amt = users[1]
     if (amount <= 0) return await interaction.followUp("Enter a valid amount!");
     if (amount > wallet_amt)
         return await interaction.followUp("You don't habe enough money");
@@ -179,19 +179,21 @@ leaderboard.callback(async (interaction) => {
     for (const member of users) {
         if (index > 10) break;
 
-        const member_name = (
-            await interaction.client.users.cache.find((u) => u.id == member[0])
-        ).tag;
+        let member_name = (
+            await interaction.client.users.fetch(member[0].toString())
+        )?.tag;
+        if (member_name === undefined) continue;
+
         const member_amt = member[1] + member[2];
-        if (index == 1) data.push(`**🥇 \`${member_name}\` -- ${member_amt}**`);
-        if (index == 2) data.push(`**🥈 \`${member_name}\` -- ${member_amt}**`);
-        if (index == 3) data.push(`**🥉 \`${member_name}\` -- ${member_amt}**`);
+        if (index === 1) data.push(`**🥇 \`${member_name}\` -- ${member_amt}**`);
+        if (index === 2) data.push(`**🥈 \`${member_name}\` -- ${member_amt}**`);
+        if (index === 3) data.push(`**🥉 \`${member_name}\` -- ${member_amt}**`);
         if (index >= 4)
             data.push(`**${index} \`${member_name}\` -- ${member_amt}**`);
         index += 1;
     }
 
-    msg = data.join("\n");
+    const msg = data.join("\n");
     const em = new EmbedBuilder()
         .setTitle(`Top ${index} Richest Users - Leaderboard`)
         .setDescription(
@@ -199,8 +201,8 @@ leaderboard.callback(async (interaction) => {
         )
         .setColor(0x00ff00)
         .setTimestamp()
-        .setFooter({ text: `GLOBAL - ${guild.name}` });
-    await interaction.followUp({ embeds: [em] });
+        .setFooter({text: `GLOBAL - ${guild.name}`});
+    await interaction.followUp({embeds: [em]});
 });
 
 module.exports = {

@@ -1,7 +1,7 @@
-const { Auth } = require("../config.js");
+const {Auth} = require("../config.js");
 
-const { User } = require("discord.js");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const {User} = require("discord.js");
+const {MongoClient, ServerApiVersion} = require("mongodb");
 
 const conn = new MongoClient(Auth.CLUSTER_AUTH_URL, {
     useNewUrlParser: true,
@@ -49,12 +49,12 @@ async function create_table() {
  */
 async function open_bank(user) {
     const cursor = DB.cursor().collection(TABLE_NAME);
-    const user_data = await cursor.findOne({ _id: user.id });
+    const user_data = await cursor.findOne({_id: user.id});
 
     if (user_data === null) {
-        const doc = { ...document };
+        const doc = {...document};
         doc._id = user.id;
-        cursor.insertOne(doc);
+        await cursor.insertOne(doc);
     }
 }
 
@@ -66,7 +66,7 @@ async function open_bank(user) {
 async function get_bank_data(user) {
     const cursor = DB.cursor().collection(TABLE_NAME);
 
-    let user_data = await cursor.findOne({ _id: user.id });
+    let user_data = await cursor.findOne({_id: user.id});
     return Object.values(user_data);
 }
 
@@ -82,19 +82,19 @@ async function update_bank(user, amount, mode = "wallet") {
     const payload = {};
     payload[mode] = amount;
 
-    await cursor.updateOne({ _id: user.id }, { $inc: payload });
+    await cursor.updateOne({_id: user.id}, {$inc: payload});
 
-    const doc = { _id: 0 };
+    const doc = {_id: 0};
     doc[mode] = 1;
-    const user_data = await cursor.findOne({ _id: user.id }, doc);
+    const user_data = await cursor.findOne({_id: user.id}, doc);
     return Object.values(user_data);
 }
 
 async function get_networth_lb() {
     const cursor = DB.cursor().collection(TABLE_NAME);
-    user_data = cursor.aggregate([
-        { $addFields: { sum: { $add: ["$wallet", "$bank"] } } },
-        { $sort: { sum: -1 } },
+    const user_data = cursor.aggregate([
+        {$addFields: {sum: {$add: ["$wallet", "$bank"]}}},
+        {$sort: {sum: -1}},
     ]);
     let sorted_data = [];
     for (const val of await user_data.toArray())

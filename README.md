@@ -12,7 +12,7 @@
 ![Windows](https://img.shields.io/badge/os-windows-yellow)
 ![Linux](https://img.shields.io/badge/os-linux-yellow)
 
-### Join [Official Discord Server](https://discord.gg/GVMWx5EaAN "click to Join") for more guidance !
+Join [Official Discord Server](https://discord.gg/GVMWx5EaAN "click to Join") for more guidance !
 
 <hr/>
 
@@ -26,7 +26,8 @@
 
 <br/>
 
-To create a Discord bot using **Python**, go to [economy-bot-discord.py](https://github.com/Modern-Realm/economy-bot-discord.py)
+To create a Discord bot using **Python**, go
+to [economy-bot-discord.py](https://github.com/Modern-Realm/economy-bot-discord.py)
 
 <hr/>
 
@@ -35,7 +36,7 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 ### • Bank commands
 
 |                             Name                             |      Args      |             Usage             |
-| :----------------------------------------------------------: | :------------: | :---------------------------: |
+|:------------------------------------------------------------:|:--------------:|:-----------------------------:|
 |                           balance                            |     member     | `/balance <member: optional>` |
 |                           deposit                            |     amount     |      `/deposit <amount>`      |
 |                           withdraw                           |     amount     |     `/withdraw <amount>`      |
@@ -45,7 +46,7 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 ### • Shop commands
 
 |   Name    |   Args    |              Usage              |
-| :-------: | :-------: | :-----------------------------: |
+|:---------:|:---------:|:-------------------------------:|
 |   shop    |   None    |             `/shop`             |
 | shop info | item_name |      ` /shop <item name>`       |
 |    buy    | item_name |       `/buy <item name>`        |
@@ -55,7 +56,7 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 ### • Economy commands
 
 |  Name   | Args |   Usage    | Cooldown (in days) |
-| :-----: | :--: | :--------: | :----------------: |
+|:-------:|:----:|:----------:|:------------------:|
 |  daily  | None |  `/daily`  |         1          |
 | weekly  | None | `/weekly`  |         7          |
 | monthly | None | `/monthly` |         30         |
@@ -63,10 +64,29 @@ To create a Discord bot using **Python**, go to [economy-bot-discord.py](https:/
 ### • Fun commands ![Generic badge](https://img.shields.io/badge/new-gold)
 
 |   Name   |      Args      |                Usage                |
-| :------: | :------------: | :---------------------------------: |
+|:--------:|:--------------:|:-----------------------------------:|
 | coinflip | bet_on, amount |    `/coinflip <bet_on> <amount>`    |
 |  slots   |     amount     |          `/slots <amount>`          |
 |   dice   | amount, bet_on | `/dice <amount> <bet_on: optional>` |
+
+New bot commands will be added shortly ...
+
+<hr/>
+
+## Thanking JetBrains for Their Support and Assistance
+
+<center>
+<img width="90px" height="80px" alt="JetBrains Logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png"/>
+
+[jetbrains.com](https://jb.gg/OpenSourceSupport) 
+once again thank you 💝 for providing me free OSS License
+
+We used this JetBrains IDE to develop this open-source project:
+
+• <img height="14px" width="16px" alt="WebStorm logo." src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.png"/>
+**WebStorm** - The smartest JavaScript IDE
+
+</center>
 
 <hr/>
 

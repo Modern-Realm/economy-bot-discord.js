@@ -1,4 +1,4 @@
-const { SlashCommand } = require("../base.js");
+const {SlashCommand} = require("../base.js");
 const {
     open_bank,
     get_bank_data,
@@ -11,8 +11,7 @@ const {
     update_inv,
 } = require("../modules/inventory_funcs.js");
 
-const { EmbedBuilder, userMention } = require("discord.js");
-const Math = require("mathjs");
+const {EmbedBuilder, userMention} = require("discord.js");
 
 const inventory = new SlashCommand()
     .setName("inventory")
@@ -54,9 +53,9 @@ inventory.callback(async (interaction) => {
         name: `${user.username}'s Inventory`,
         iconURL: user.displayAvatarURL(),
     });
-    if (x == 1) em.setDescription("The items which you bought display here...");
+    if (x === 1) em.setDescription("The items which you bought display here...");
 
-    await interaction.followUp({ embeds: [em] });
+    await interaction.followUp({embeds: [em]});
 });
 
 const buy = new SlashCommand()
@@ -85,7 +84,7 @@ buy.callback(async (interaction) => {
 
     const users = await get_bank_data(user);
     for (const item of shop_items) {
-        if (item_name == item.name.toLowerCase()) {
+        if (item_name === item.name.toLowerCase()) {
             if (users[1] < item.cost) {
                 return await interaction.followUp(
                     `${userMention(
@@ -129,7 +128,7 @@ sell.callback(async (interaction) => {
         );
 
     for (const item of shop_items) {
-        if (item_name == item.name.toLowerCase()) {
+        if (item_name === item.name.toLowerCase()) {
             let cost = Math.round(item["cost"] / 4);
             const quantity = await update_inv(user, 0, item.name);
             if (quantity[0] < 1)

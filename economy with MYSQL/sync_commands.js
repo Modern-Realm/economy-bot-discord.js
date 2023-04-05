@@ -1,8 +1,8 @@
-const { Auth } = require("./config.js");
+const {Auth} = require("./config.js");
 
-const { REST, Routes, Collection } = require("discord.js");
+const {REST, Routes, Collection} = require("discord.js");
 
-const rest = new REST({ version: "10" }).setToken(Auth.TOKEN);
+const rest = new REST({version: "10"}).setToken(Auth.TOKEN);
 
 /**
  *
@@ -22,12 +22,12 @@ async function register_commands(bot_commands, sync) {
         );
         if (sync) {
             await rest
-                .put(Routes.applicationCommands(Auth.CLIENT_ID), { body: [] })
+                .put(Routes.applicationCommands(Auth.CLIENT_ID), {body: []})
                 .then(async () => {
                     console.log("syncing commands");
                     data = await rest.put(
                         Routes.applicationCommands(Auth.CLIENT_ID),
-                        { body: commands }
+                        {body: commands}
                     );
                     console.log(
                         `Successfully reloaded ${data.length} application (/) commands.`

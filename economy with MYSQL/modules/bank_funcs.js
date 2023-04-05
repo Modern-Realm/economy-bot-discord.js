@@ -1,7 +1,7 @@
-const { Auth } = require("../config.js");
+const {Auth} = require("../config.js");
 
 const mysql = require("mysql");
-const { User } = require("discord.js");
+const {User} = require("discord.js");
 
 const TABLE_NAME = "`bank`";
 const columns = ["wallet", "bank"]; // You can add more Columns in it !
@@ -54,9 +54,9 @@ class Database {
         else {
             try {
                 let data = results.map((row) => Object.values(row));
-                if (data.length == 0) results = null;
-                if (fetch == "all") results = data;
-                if (fetch == "one") results = data[0];
+                if (data.length === 0) results = null;
+                if (fetch === "all") results = data;
+                if (fetch === "one") results = data[0];
             } catch (error) {
                 results = null;
             }
@@ -81,7 +81,8 @@ async function create_table() {
             await DB.execute(
                 `ALTER IGNORE TABLE ${TABLE_NAME} ADD COLUMN \`${col}\` MEDIUMINT`
             );
-        } catch (err) {}
+        } catch (err) {
+        }
     }
 }
 
@@ -156,7 +157,7 @@ async function update_bank(user, amount, mode = "wallet") {
 async function get_networth_lb() {
     return await DB.execute(
         `SELECT userID, wallet + bank FROM ${TABLE_NAME} ` +
-            `ORDER BY wallet + bank DESC`,
+        `ORDER BY wallet + bank DESC`,
         [],
         "all"
     );

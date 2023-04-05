@@ -10,10 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/rest": "^1.5.0",
+    "chalk": "^4.1.2",
     "discord-api-types": "^0.37.29",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "mathjs": "^11.5.0",
     "sqlite3": "^5.1.4"
   },
   "description": ""

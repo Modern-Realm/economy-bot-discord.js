@@ -1,9 +1,7 @@
-const Math = require("mathjs");
 const {
     Client,
     GatewayIntentBits,
     Collection,
-    Interaction,
     SlashCommandBuilder,
 } = require("discord.js");
 
@@ -19,6 +17,7 @@ const client = new Client({
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
+
 class SlashCommand extends SlashCommandBuilder {
     constructor() {
         super();
@@ -28,13 +27,14 @@ class SlashCommand extends SlashCommandBuilder {
 
     setCooldown(per) {
         this.per = per;
-        client.cooldowns.set(this.name, new Array());
+        client.cooldowns.set(this.name, []);
         return this;
     }
 
+
     /**
      *
-     * @param {(interaction: Interaction)} coro
+     * @param {Function} coro
      */
     callback(coro) {
         this.execute = coro;
@@ -46,7 +46,7 @@ class SlashCommand extends SlashCommandBuilder {
  *
  * @param {number} min
  * @param {number | null} max
- * @returns
+ * @returns number
  */
 function randint(min, max = null) {
     if (max === null) return Math.floor(Math.random() * min);
@@ -57,7 +57,7 @@ function randint(min, max = null) {
 /**
  *
  * @param {Array} array
- * @returns
+ * @returns Array
  */
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -66,7 +66,7 @@ function shuffle(array) {
 /**
  *
  * @param {number} milliseconds
- * @returns
+ * @returns string
  */
 function time_convertor(milliseconds) {
     const secs_ = Math.floor(milliseconds / 1000);

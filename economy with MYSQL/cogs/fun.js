@@ -1,4 +1,4 @@
-const { SlashCommand, randint, shuffle } = require("../base.js");
+const {SlashCommand, randint, shuffle} = require("../base.js");
 const {
     open_bank,
     get_bank_data,
@@ -6,8 +6,7 @@ const {
     get_networth_lb,
 } = require("../modules/bank_funcs.js");
 
-const Math = require("mathjs");
-const { EmbedBuilder, userMention } = require("discord.js");
+const {EmbedBuilder, userMention} = require("discord.js");
 
 const coinflip = new SlashCommand()
     .setName("coinflip")
@@ -17,8 +16,8 @@ const coinflip = new SlashCommand()
             .setName("bet_on")
             .setDescription("select either heads or tails")
             .addChoices(
-                { name: "heads", value: "heads" },
-                { name: "tails", value: "tails" }
+                {name: "heads", value: "heads"},
+                {name: "tails", value: "tails"}
             )
             .setRequired(true)
     )
@@ -47,7 +46,7 @@ coinflip.callback(async (interaction) => {
     let coin = ["heads", "tails"];
     const result = coin[randint(0, 1)];
 
-    if (result != bet_on) {
+    if (result !== bet_on) {
         await update_bank(user, -amount);
         return await interaction.followUp(`Got ${result}, you lost ${amount}`);
     }
@@ -95,7 +94,7 @@ slots.callback(async (interaction) => {
     slot3 = shuffle(slot3);
 
     let mid;
-    if (total % 2 == 0)
+    if (total % 2 === 0)
         // if even
         mid = Math.floor(total / 2);
     else mid = Math.floor((total + 1) / 2);
@@ -105,10 +104,10 @@ slots.callback(async (interaction) => {
 
     const em = new EmbedBuilder().setDescription(
         "```" +
-            `| ${result[mid - 1].join(sep)} |\n` +
-            `| ${result[mid].join(sep)} | 📍\n` +
-            `| ${result[mid + 1].join(sep)} |\n` +
-            "```"
+        `| ${result[mid - 1].join(sep)} |\n` +
+        `| ${result[mid].join(sep)} | 📍\n` +
+        `| ${result[mid + 1].join(sep)} |\n` +
+        "```"
     );
 
     const slot = result[mid];
@@ -117,11 +116,11 @@ slots.callback(async (interaction) => {
     const s3 = slot[2];
 
     let reward, content;
-    if (s1 == s2 && s2 == s3 && s1 == s3) {
+    if (s1 === s2 && s2 === s3 && s1 === s3) {
         reward = Math.floor(amount / 2);
         await update_bank(user, +reward);
         content = `Jackpot! you won ${amount + reward}`;
-    } else if (s1 == s2 || s2 == s3 || s1 == s3) {
+    } else if (s1 === s2 || s2 === s3 || s1 === s3) {
         reward = Math.floor(amount / 4);
         await update_bank(user, +reward);
         content = `GG! you only won ${amount + reward}`;
@@ -130,7 +129,7 @@ slots.callback(async (interaction) => {
         content = `You lost ${amount}`;
     }
 
-    await interaction.followUp({ content: content, embeds: [em] });
+    await interaction.followUp({content: content, embeds: [em]});
 });
 
 const dice = new SlashCommand()
@@ -167,7 +166,7 @@ dice.callback(async (interaction) => {
         return await interaction.followUp(`You don't have enough money`);
 
     const rand_num = rdice[randint(0, rdice.length)];
-    if (rand_num != bet_on) {
+    if (rand_num !== bet_on) {
         await update_bank(user, -amount);
         return await interaction.followUp(
             `Got ${rand_num}, you lost ${amount}`

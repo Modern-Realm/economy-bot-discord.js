@@ -1,7 +1,7 @@
-const { SlashCommand, randint } = require("../base.js");
-const { open_bank, update_bank } = require("../modules/bank_funcs.js");
+const {SlashCommand, randint} = require("../base.js");
+const {open_bank, update_bank} = require("../modules/bank_funcs.js");
 
-const { EmbedBuilder, userMention } = require("discord.js");
+const {EmbedBuilder, userMention} = require("discord.js");
 
 const daily = new SlashCommand()
     .setName("daily")
