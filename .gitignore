@@ -51,6 +51,9 @@ typings/
 # Optional npm cache directory
 .npm
 
+# PyCharm, WebStrom cache
+.idea/
+
 # Optional eslint cache
 .eslintcache
 
@@ -100,6 +103,9 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
+
+# Sqlite db files
+*.db
 
 # TernJS port file
 .tern-port
