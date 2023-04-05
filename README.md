@@ -76,13 +76,19 @@ New bot commands will be added shortly ...
 ## Thanking JetBrains for Their Support and Assistance
 
 <div align="center">
+
 <img width="90px" height="80px" alt="JetBrains Logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png"/>
 
-once again thank you 💝 for providing me free OSS License.
+<a href="https://jb.gg/OpenSourceSupport">jetbrains.com</a>
+Once again thank you 💝 for providing me free OSS License.
 
-JetBrains IDE(s) used:
+These IDE(S) made things a lot easier for us:
 
-• <img height="14px" width="16px" alt="WebStorm logo." src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.png"/> **WebStorm** - The smartest JavaScript IDE
+• <img height="14px" width="16px" alt="WebStorm logo." src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.png"/>
+**WebStorm** - The smartest JavaScript IDE
+
+• <img height="14px" width="16px" alt="PyCharm logo." src="https://resources.jetbrains.com/storage/products/company/brand/logos/PyCharm_icon.png">
+**PyCharm Professional** - Python IDE for professional developers
 
 </div>
 
