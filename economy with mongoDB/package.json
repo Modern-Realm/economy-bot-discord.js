@@ -14,7 +14,7 @@
     "discord-api-types": "^0.37.29",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "mongodb": "^4.13.0"
+    "mongodb": "^4.17.0"
   },
   "description": ""
 }
